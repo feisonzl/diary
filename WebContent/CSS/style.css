@@ -1,0 +1,11 @@
+body{
+	font-size: 9pt;
+	margin: 0px;
+	padding: 0px;
+}
+#box{
+	margin: 0 auto auto auto;
+	width: 800px;
+	clear: both;
+	background-color: #FFFFFF;
+}
