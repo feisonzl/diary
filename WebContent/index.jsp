@@ -11,5 +11,8 @@
 <a href="listAllDiary.jsp">list All Diary</a>
  -->
  <% response.sendRedirect("listAllDiary.jsp"); %>
+
+
+</div>
 </body>
 </html>
