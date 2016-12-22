@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>listAllDiary.jsp</title>
 </head>
 <body background="#F0F0F0">
 	<div id="box">
