@@ -88,7 +88,8 @@ function deal_load() {
 }
 
 function myClose(divID) {
-	divID.style.display='none';
+	document.getElementById(divID).style.display="none";
+	//divID.style.display='none';
 	document.getElementById("notClickDiv").style.display='none';
 	
 }
@@ -101,10 +102,6 @@ function myOpen(divID) {
 	document.getElementById(divID).style.display='block';
 	document.getElementById(divID).style.left=(document.body.clientWidth-240)/2;
 	document.getElementById(divID).style.top=(document.body.clientHeight-120)/2;
-}
-
-function Regopen() {
-	
 }
 </script>
 <link rel="stylesheet" href="CSS/style.css"></link>

@@ -1,9 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!--
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+-->
+
 <script type="text/javascript" src="JS/AjaxRequest.js"></script>
-<script type="text/javascript">
+<script type="text/javascript" >
 var flag_user=true;
+var flag_pwd=true;
+var flag_repwd=true;
+
 function checkUser(username) {
 	if(username=="")
 	{
@@ -16,27 +28,11 @@ function checkUser(username) {
 		document.getEventById("tr_user").style.display='block';
 		flag_user=false;
 	}else{
-		var loader=new net.AjaxRequest("UserServlet?action=register",register_load,onerror,"GET","username"+username);(),regi
-function register_load(){
+		var loader=new net.AjaxRequest("UserServlet?action=register",register_load,onerror,"GET","username"+username);
+	}
 	
 }
-function onerror(){
-	alert("register error!!");
-}result=this.req.responseText;
-	result=result.replace(/\s/g,"");
-	if(result=="1"){
-		document.getEventById("div_user").innerHTML="";
-		document.getEventById("tr_user").style.display='none';
-		flag_user=true;
-	}else{
-		document.getEventById("div_user").innerHTML=result;
-		document.getEventById("tr_user").style.display='block';
-		flag_user=false;		
-	}
-}
-function onerror(){
-	alert("register error!!");
-}
+
 function checkPwd(pwd) {
 	if(pwd=="")
 	{
@@ -54,6 +50,7 @@ function checkPwd(pwd) {
 		flag_pwd=true;
 	}
 }
+
 function checkRepwd(repwd) {
 	if(repwd=="")
 	{
@@ -72,23 +69,52 @@ function checkRepwd(repwd) {
 	}
 }
 
+function onerror(){
+	alert("register error!!");
+}
+
+function register_load(){
+	result=this.req.responseText;
+	result=result.replace(/\s/g,"");
+	if(result=="1"){
+		document.getEventById("div_user").innerHTML="";
+		document.getEventById("tr_user").style.display='none';
+		flag_user=true;
+	}else{
+		document.getEventById("div_user").innerHTML=result;
+		document.getEventById("tr_user").style.display='block';
+		flag_user=false;		
+	}
+}
+
+function Regopen(divID){
+	document.getElementById("notClickDiv").style.display='block';
+	document.getElementById("notClickDiv").style.width=document.body.clientWidth;
+	document.getElementById("notClickDiv").style.height=document.body.clientHeight;
+	document.getElementById(divID).style.display='block';
+	document.getElementById(divID).style.left=(document.body.clientWidth-663)/2;
+	document.getElementById(divID).style.top=(document.body.clientHeight-200)/2;
+}
+
 
 </script>
 
 <style>
 #register{
-	width: auto;
-	height: ;
+	width: 663;
+	height: 441;
 	display: none;
-	z-index: 10;
-	background-color: #FFFFFF;
+	z-index: 11;
+	background-color: #546B51;
+	padding: 4px;
+	position: absolute;
 }
 
 </style>
 <div id="register">
 	<form action="" name="form1" id="form1" method="post">
 		<table style="width: 100%;height: 100%;border: 0;background-color: #FEFEFC;">
-			<tr><td height="408" align="center" valign="top">
+			<tr><td height="200" align="center" valign="top">
 					<table style="width: 100%;border: 0;"><tr>
 							<td height="50" style="font-size: 14px; font-weight: bold;color:#1B7F5D;">
 							<b>user register</b>
@@ -97,7 +123,7 @@ function checkRepwd(repwd) {
 					</table>
 					<table style="width: 94%;height: 331;border: 0;background-color: #CCCCCC">
 						<tr>
-							<td height="310" valign="top" bgcolor="#FFFFFF">
+							<td height="180" valign="top" bgcolor="#FFFFFF">
 								<table style="border: 0px;background-color: #FFFEF9;">
 									<tr id="tr_user" style="display: none;">
 										<td height="40" colspan="2" align="center"><div id="div_user" style="border:solid #FF6600 1px;color: #FF000000;width: 90%;height: 29px;padding-top: 8px;"></div>										</td>
@@ -117,9 +143,12 @@ function checkRepwd(repwd) {
 										<td width="93" height="40" align="center">confirm password</td>
 										<td height="40" align="left"><input id="repwd" type="password" onblur="checkRepwd(this.value)"> </td>
 									</tr>
+									<tr>
+										<td width="93" height="40" align="center"><input type="submit" value="submit"></td>
+										<td width="93" height="40" align="center"><input type="button" onclick="myClose('register')" value="close"></td>
+									</tr>
 
 								</table>
-							<b>user register</b>
 							</td>
 						</tr>
 					</table>
@@ -130,3 +159,7 @@ function checkRepwd(repwd) {
 	</form>
 </div>
 
+<!-- 
+</body>
+</html>
+ -->

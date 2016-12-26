@@ -9,7 +9,9 @@
 <body background="#F0F0F0">
 	<div id="box">
 		<%@ include file="top.jsp" %>
+		 
 		<%@ include file="register.jsp" %>
+		
 		<%@ include file="bottom.jsp" %>
 	</div>
 </body>
