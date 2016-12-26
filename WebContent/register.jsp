@@ -16,6 +16,20 @@ var flag_user=true;
 var flag_pwd=true;
 var flag_repwd=true;
 
+function check_load(){
+	result=this.req.responseText;
+	result=result.replace(/\s/g,"");
+	if(result=="1"){
+		document.getEventById("div_user").innerHTML="";
+		document.getEventById("tr_user").style.display='none';
+		flag_user=true;
+	}else{
+		document.getEventById("div_user").innerHTML=result;
+		document.getEventById("tr_user").style.display='block';
+		flag_user=false;		
+	}
+}
+
 function checkUser(username) {
 	if(username=="")
 	{
@@ -28,7 +42,7 @@ function checkUser(username) {
 		document.getEventById("tr_user").style.display='block';
 		flag_user=false;
 	}else{
-		var loader=new net.AjaxRequest("UserServlet?action=register",register_load,onerror,"GET","username"+username);
+		var loader=new net.AjaxRequest("UserServlet?action=checkUser&username="+username+"&nocache="+new Date().getTime(),check_load,onerror,"GET");
 	}
 	
 }
@@ -73,20 +87,6 @@ function onerror(){
 	alert("register error!!");
 }
 
-function register_load(){
-	result=this.req.responseText;
-	result=result.replace(/\s/g,"");
-	if(result=="1"){
-		document.getEventById("div_user").innerHTML="";
-		document.getEventById("tr_user").style.display='none';
-		flag_user=true;
-	}else{
-		document.getEventById("div_user").innerHTML=result;
-		document.getEventById("tr_user").style.display='block';
-		flag_user=false;		
-	}
-}
-
 function Regopen(divID){
 	document.getElementById("notClickDiv").style.display='block';
 	document.getElementById("notClickDiv").style.width=document.body.clientWidth;
@@ -94,6 +94,33 @@ function Regopen(divID){
 	document.getElementById(divID).style.display='block';
 	document.getElementById(divID).style.left=(document.body.clientWidth-663)/2;
 	document.getElementById(divID).style.top=(document.body.clientHeight-200)/2;
+}
+
+function register_load(){
+	result=this.req.responseText;
+	result=result.replace(/\s/g,"");
+	form1.reset();
+	document.getElementById("tr_user").style.display='none';
+	document.getElementById("tr_pwd").style.display='none';
+	document.getElementById("tr_repwd").style.display='none';
+	myClose("register");
+	alert("register success!!");
+	
+}
+function register_user(){
+	if(form1.username==""){
+		alert("please input username!!");form1.username.focus();return false;
+	}else if(form1.pwd==""){
+		alert("please input password!!");form1.username.focus();return false;
+	}else if(form1.repwd==""){
+		alert("please confirm password!!");form1.username.focus();return false;
+	}else if(flag_repwd && flag_pwd && flag_user){
+		var params="&username="+form1.username+"&pwd="+form1.pwd;
+		var loader=new net.AjaxRequest("UserServlet?action=register&nocache="+new Date().getTime(),register_load,onerror,"GET",parms);
+	}else{
+		alert("your input message is illegal!!");
+	}
+	
 }
 
 
@@ -144,7 +171,7 @@ function Regopen(divID){
 										<td height="40" align="left"><input id="repwd" type="password" onblur="checkRepwd(this.value)"> </td>
 									</tr>
 									<tr>
-										<td width="93" height="40" align="center"><input type="submit" value="submit"></td>
+										<td width="93" height="40" align="center"><input type="button" onclick="register_user()" value="submit"></td>
 										<td width="93" height="40" align="center"><input type="button" onclick="myClose('register')" value="close"></td>
 									</tr>
 
