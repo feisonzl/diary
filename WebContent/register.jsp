@@ -104,12 +104,13 @@ function Regopen(divID){
 function register_load(){
 	result=this.req.responseText;
 	result=result.replace(/\s/g,"");
+	alert("register result:"+result);
 	form1.reset();
 	document.getElementById("tr_user").style.display='none';
 	document.getElementById("tr_pwd").style.display='none';
 	document.getElementById("tr_repwd").style.display='none';
 	myClose("register");
-	alert("register success!!");
+	//alert("register success!!");
 	
 }
 function register_user(){
