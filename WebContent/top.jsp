@@ -143,7 +143,7 @@ function myOpen(divID) {
 			</li>
 			<li style="padding-left: 40px">
 			<input type="button" value="submit" id="submit" name="submit" onclick="loginSubmit(this.form)">
-			<input type="button" value="close" id="submit2" name="submit2" onclick="myClose(login)">
+			<input type="button" value="close" id="submit2" name="submit2" onclick="myClose('login')">
 			</li>
 		</ul>
 		</div>

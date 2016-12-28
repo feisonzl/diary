@@ -11,6 +11,7 @@
 -->
 
 <script type="text/javascript" src="JS/AjaxRequest.js"></script>
+<script type="text/javascript" src="JS/common.js"></script>
 <script type="text/javascript" >
 var flag_user=true;
 var flag_pwd=true;
@@ -31,17 +32,21 @@ function check_load(){
 }
 
 function checkUser(username) {
+	//alert("checkUser!!");
 	if(username=="")
 	{
+		//alert("checkUser username==''");
 		document.getEventById("div_user").innerHTML="please input username!!";
 		document.getEventById("tr_user").style.display='block';
 		flag_user=false;
 		/*alert("please input username!!");*/
-	}else if(!checkUser(username)){
+	}else if(!checkLegUser(username)){
+		//alert("!checkUser(username)");
 		document.getEventById("div_user").innerHTML="your username is illegal!!";
 		document.getEventById("tr_user").style.display='block';
 		flag_user=false;
 	}else{
+		//alert("net.AjaxRequest!!");
 		var loader=new net.AjaxRequest("UserServlet?action=checkUser&username="+username+"&nocache="+new Date().getTime(),check_load,onerror,"GET");
 	}
 	
@@ -54,7 +59,7 @@ function checkPwd(pwd) {
 		document.getEventById("tr_pwd").style.display='block';
 		flag_pwd=false;
 		/*alert("please input username!!");*/
-	}else if(!checkPwd(pwd)){
+	}else if(!checkLegPwd(pwd)){
 		document.getEventById("div_pwd").innerHTML="your pwd is illegal!!";
 		document.getEventById("tr_pwd").style.display='block';
 		flag_pwd=false;
@@ -108,15 +113,16 @@ function register_load(){
 	
 }
 function register_user(){
-	if(form1.username==""){
+	//alert("register_user!!username="+form1.username.value+"&pwd="+form1.pwd.value+"&repwd="+form1.repwd.value);
+	if(form1.username.value==""){
 		alert("please input username!!");form1.username.focus();return false;
-	}else if(form1.pwd==""){
+	}else if(form1.pwd.value==""){
 		alert("please input password!!");form1.username.focus();return false;
-	}else if(form1.repwd==""){
+	}else if(form1.repwd.value==""){
 		alert("please confirm password!!");form1.username.focus();return false;
 	}else if(flag_repwd && flag_pwd && flag_user){
 		var params="&username="+form1.username+"&pwd="+form1.pwd;
-		var loader=new net.AjaxRequest("UserServlet?action=register&nocache="+new Date().getTime(),register_load,onerror,"GET",parms);
+		var loader=new net.AjaxRequest("UserServlet?action=register&nocache="+new Date().getTime(),register_load,onerror,"GET",params);
 	}else{
 		alert("your input message is illegal!!");
 	}
@@ -157,18 +163,18 @@ function register_user(){
 									</tr>
 									<tr>
 										<td width="93" height="40" align="center">user name</td>
-										<td height="40" align="left"><input id="username" type="text" onblur="checkUser(this.value)"> </td>
+										<td height="40" align="left"><input name="username" id="username" type="text" onblur="checkUser(this.value)"> </td>
 									</tr>
 									<tr id="tr_pwd" style="display: none;">
 										<td height="40" colspan="2" align="center"><div id="div_pwd" style="border:solid #FF6600 1px;color: #FF000000;width: 90%;height: 29px;padding-top: 8px;"></div>										</td>
 									</tr>
 									<tr>
 										<td width="93" height="40" align="center">password</td>
-										<td height="40" align="left"><input id="pwd" type="password" onblur="checkPwd(this.value)"> </td>
+										<td height="40" align="left"><input name="pwd" id="pwd" type="password" onblur="checkPwd(this.value)"> </td>
 									</tr>
 									<tr>
 										<td width="93" height="40" align="center">confirm password</td>
-										<td height="40" align="left"><input id="repwd" type="password" onblur="checkRepwd(this.value)"> </td>
+										<td height="40" align="left"><input name="repwd" id="repwd" type="password" onblur="checkRepwd(this.value)"> </td>
 									</tr>
 									<tr>
 										<td width="93" height="40" align="center"><input type="button" onclick="register_user()" value="submit"></td>
